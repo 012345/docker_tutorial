@@ -8,7 +8,7 @@
 
 > A container image is a lightweight, stand-alone, executable package of a piece of software that includes everything needed to run it: code, runtime, system tools, system libraries, settings. Available for both Linux and Windows based apps, containerized software will always run the same, regardless of the environment. Containers isolate software from its surroundings, for example differences between development and staging environments and help reduce conflicts between teams running different software on the same infrastructure.
 
-![Docker donated $25,000 to the Oceanic Society in Ross, California and in exchange the organization denoted one of the whales, Molly Dock, that its affiliated scientists have been tracking for years as being sponsored by Docker. hence the logo](https://www.docker.com/sites/default/files/Package%20software%40x2.png)
+![Docker donated $25,000 to the Oceanic Society in Ross, California and in exchange the organization denoted one of the whales, Molly Dock, that its affiliated scientists have been tracking for years as being sponsored by Docker. hence the logo](https://github.com/012345/docker_tutorial/blob/master/Screen%20Shot%202017-11-14%20at%207.33.49%20PM.png)
 
 
 
