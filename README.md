@@ -32,7 +32,7 @@ Now we need to get the DataStax Images!
 Use DataStax provided Docker images in non-production environments for development, to learn DataStax Enterprise, OpsCenter and DataStax Studio, to try new ideas, or to test and demonstrate an application. The following images are available:
 
 Docker Store:
-* [DataStax Enterprise](https://hub.docker.com/r/datastax/dse-server/): The best distribution of Apache Cassandra™ with integrated Search, Analytics, and Graph capabilities
+* [DataStax Enterprise](https://store.docker.com/images/datastax): The best distribution of Apache Cassandra™ with integrated Search, Analytics, and Graph capabilities
 
 Docker Hub:
 * [DataStax Studio](https://hub.docker.com/r/datastax/dse-studio/): An interactive developer’s tool for DataStax Enterprise which is designed to help your DSE database, Cassandra Query Language (CQL), DSE Graph, and Gremlin Query Language development.
@@ -42,7 +42,7 @@ Docker Hub:
 
 DataStax Enterprise - DataStax Enterprise is located in Docker Store. That means that there are a couple extra steps to download the image. 
 1. Register an account with [Docker Store](https://store.docker.com/) (free)
-2. Subscribe to [DataStax Enterprise](https://hub.docker.com/r/datastax/dse-server/) (also free)
+2. Subscribe to [DataStax Enterprise](https://store.docker.com/images/datastax) (also free)
 3. You're now subscribed to the image and can always pull it with no extra steps
 
 DataStax Studio and Opscenter are in Docker hub so getting them is straight forward. 
@@ -83,7 +83,7 @@ You can combine the options to run more than one feature. For more examples, see
 
 Let's start a single node of DSE 
 
-```docker run -e DS_LICENSE=accept --name my-dse -d datastax/dse-server```
+```docker run -e DS_LICENSE=accept --name my-dse -d store/datastax/dse-server:5.1.4```
 
 We started this container in the background by using the ```-d``` option. Use the following command to get an interactive shell to your DSE node.
 
@@ -124,7 +124,7 @@ Create an OpsCenter container:
 
 Create DataStax Enterprise server nodes, providing the link to the OpsCenter container using the Docker name.
 
-```docker run -e DS_LICENSE=accept --link my-opscenter:opscenter --name my-dse -d datastax/dse-server```
+```docker run -e DS_LICENSE=accept --link my-opscenter:opscenter --name my-dse -d store/datastax/dse-server:5.1.4```
 
 Get the IP Address of your your new DSE node. 
 
