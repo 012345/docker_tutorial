@@ -41,15 +41,15 @@ Docker Hub:
 ## Get the Images
 
 DataStax Enterprise - DataStax Enterprise is located in Docker Store. That means that there are a couple extra steps to download the image. 
-1. Register an account with [Docker Store](https://store.docker.com/) (free)
-2. Subscribe to [DataStax Enterprise](https://store.docker.com/images/datastax) (also free)
-3. You're now subscribed to the image and can always pull it with no extra steps
+1. Register for a DockerID [Docker Cloud](https://docs.docker.com/docker-id/) (free)
+2. Signin to your Docker account (easy and free)
+3. You can now pull the DataStax Enterprise Server Image (free and easy)
 
 DataStax Studio and Opscenter are in Docker hub so getting them is straight forward. 
 
 Pull DataStax Enterprise, Studio, and OpsCenter
 
-```docker pull store/datstax/dse-server:latest```
+```docker pull store/datastax/dse-server:5.1.5```
 
 ```docker pull datastax/dse-studio```
 
@@ -83,7 +83,7 @@ You can combine the options to run more than one feature. For more examples, see
 
 Let's start a single node of DSE 
 
-```docker run -e DS_LICENSE=accept --name my-dse -d store/datastax/dse-server:5.1.4```
+```docker run -e DS_LICENSE=accept --name my-dse -d store/datastax/dse-server:5.1.5```
 
 We started this container in the background by using the ```-d``` option. Use the following command to get an interactive shell to your DSE node.
 
@@ -124,7 +124,7 @@ Create an OpsCenter container:
 
 Create DataStax Enterprise server nodes, providing the link to the OpsCenter container using the Docker name.
 
-```docker run -e DS_LICENSE=accept --link my-opscenter:opscenter --name my-dse -d store/datastax/dse-server:5.1.4```
+```docker run -e DS_LICENSE=accept --link my-opscenter:opscenter --name my-dse -d store/datastax/dse-server:5.1.5```
 
 Get the IP Address of your your new DSE node. 
 
@@ -194,6 +194,6 @@ docker-compose -f docker-compose.yml -f docker-compose.opscenter.yml -f docker-c
 docker-compose -f docker-compose.yml -f docker-compose.studio.yml up -d --scale node=0
 ```
 
-##Next you should 
+## Next you should 
 * Check out the full docs for examples of how to how to modify configurations with the snazzy [conf directory](https://github.com/datastax/docker-images/blob/master/README.md#using-the-dse-conf-volume) or [environment variables](https://github.com/datastax/docker-images/blob/master/README.md#using-environment-variables)
 * Try a more advanced tutorial from [DataStax Academy](academy.datastax.com)
