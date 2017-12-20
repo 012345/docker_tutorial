@@ -193,7 +193,73 @@ docker-compose -f docker-compose.yml -f docker-compose.opscenter.yml -f docker-c
 ```
 docker-compose -f docker-compose.yml -f docker-compose.studio.yml up -d --scale node=0
 ```
+## Custom Configuration Folder
+
+For simple use cases we’ve exposed common settings as [environment variables](https://github.com/datastax/docker-images#using-environment-variables). For advanced configuration management we’re providing a simple mechanism to let you change or modify configurations without replacing or customizing the containers. You can add any of the approved config files to a mounted host volume and we’ll handle the hard work of mapping them within the container. In this section we're giving that a try.
+
+DataStax provided Docker images include a start up script that swaps DSE configuration files found in the Volume /config with the configuration file in the default location on the container.
+
+
+The full list of configuration files can be found at the following links:
+
+     * [DSE](https://github.com/datastax/docker-images/blob/master/server/5.1/files/overwritable-conf-files)
+
+     * [OPSCENTER](https://github.com/datastax/docker-images/blob/master/opscenter/6.1/files/overwritable-conf-files)
+
+     * [STUDIO](https://github.com/datastax/docker-images/blob/master/studio/2.0/files/overwritable-conf-files)
+
+On our local machine let's create a directory
+```
+mkdir my-dse-config
+
+my-dse-config
+```
+Start a DSE-Server image
+
+```
+docker run -e DS_LICENSE=accept --name my-dse -d store/datastax/dse-server:5.1.5
+```
+
+Now we need to copy down a file that we want to customize. 
+
+```
+docker cp my-dse:/opt/dse/resources/cassandra/conf/cassandra.yaml my-dse-config/cassandra.yaml
+```
+
+Now we need to change a value in the cassandra.yaml file. We'll change disk optimization from ssd to spinning. Something we'd never hope to need to change but a good and simple example. 
+
+```
+cat my-dse-config/cassandra.yaml |grep disk_opti
+```
+You see that it's currently set to ssd. You can use any editor to change the value to 'spinning' or if you're on a mac use the following sed command:
+```
+sed -i.bu 's/: ssd/: spinning/g' my-dse-config/cassandra.yaml
+
+cat my-dse-config/cassandra.yaml |grep disk_opti
+```
+
+Now lets mount the config directory which holds are changed cassandra.yaml back into the container
+
+Adding a host volume is part of the docker run command so we need to stop and remove the running container.
+```
+docker stop my-dse
+
+docker rm my-dse
+```
+
+Next we need to run the image with the mount option. Note that the format is localDir:containerDir. Also, it requires an absolute path. On my mac it's something like /uses/kathryn/my-dse-config but I've simplified for the tutorial
+
+```
+docker run -e DS_LICENSE=accept --name my-dse -d  -v /my-dse-config/:/config store/datastax/dse-server:5.1.5
+```
+
+Lastly, lets verify our customized cassandra.yaml is being used. 
+
+```
+docker exec -it my-dse cat /opt/dse/resources/cassandra/conf/cassandra.yaml |grep spinning
+```
+
+Remember, you can now put any number of the approved config files in this same directory.
 
 ## Next you should 
-* Check out the full docs for examples of how to how to modify configurations with the snazzy [conf directory](https://github.com/datastax/docker-images/blob/master/README.md#using-the-dse-conf-volume) or [environment variables](https://github.com/datastax/docker-images/blob/master/README.md#using-environment-variables)
 * Try a more advanced tutorial from [DataStax Academy](academy.datastax.com)
